@@ -5,6 +5,8 @@
 
 using namespace std;
 
+class Library;
+
 class Book {
 private:
     string title;
@@ -35,7 +37,7 @@ public:
     // Methods
     void checkOut(const string& borrowerId);
     void returnBook();
-    string toString() const;
+    string toString(Library& library) const;
     string toFileFormat() const;
     void fromFileFormat(const string& line);
 };
