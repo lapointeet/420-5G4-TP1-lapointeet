@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bibliotheque.dir/book.cpp.o.d"
   "CMakeFiles/bibliotheque.dir/filemanager.cpp.o"
   "CMakeFiles/bibliotheque.dir/filemanager.cpp.o.d"
+  "CMakeFiles/bibliotheque.dir/journal.cpp.o"
+  "CMakeFiles/bibliotheque.dir/journal.cpp.o.d"
   "CMakeFiles/bibliotheque.dir/library.cpp.o"
   "CMakeFiles/bibliotheque.dir/library.cpp.o.d"
   "CMakeFiles/bibliotheque.dir/main.cpp.o"

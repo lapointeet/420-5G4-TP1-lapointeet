@@ -8,8 +8,14 @@ using namespace std;
 // Constructor
 Library::Library() {}
 
+// Restore book to library
+void Library::restoreBook(const Book& book) {
+    books.push_back(make_unique<Book>(book));
+}
+
 // Add book to library
 void Library::addBook(const Book& book) {
+    journals.push_back(make_unique<Journal>(getCurrentDate(), "AJOUT", books.back().get())); // Journal entry
     books.push_back(make_unique<Book>(book));
 }
 
@@ -21,6 +27,7 @@ bool Library::removeBook(const string& isbn) {
         });
     
     if (it != books.end()) {
+        journals.push_back(make_unique<Journal>(getCurrentDate(), "RETRAIT", books.back().get())); // Journal entry
         books.erase(it);
         return true;
     }
@@ -51,6 +58,12 @@ vector<Book*> Library::searchBooksByTitle(const string& title) {
             results.push_back(book.get());
         }
     }
+
+    sort(results.begin(), results.end(),
+    [](const Book* a, const Book* b) {
+        return a->getTitle() < b->getTitle();
+    });
+
     return results;
 }
 
@@ -68,6 +81,12 @@ vector<Book*> Library::searchBooksByAuthor(const string& author) {
             results.push_back(book.get());
         }
     }
+
+    sort(results.begin(), results.end(),
+    [](const Book* a, const Book* b) {
+        return a->getTitle() < b->getTitle();
+    });
+
     return results;
 }
 
@@ -91,8 +110,14 @@ vector<Book*> Library::getAllBooks() {
     return allBooks;
 }
 
+// Restore user to library
+void Library::restoreUser(const User& user) {
+    users.push_back(make_unique<User>(user));
+}
+
 // Add user to library
 void Library::addUser(const User& user) {
+    journals.push_back(make_unique<Journal>(getCurrentDate(), "AJOUT UTILISATEUR", nullptr)); // Journal entry
     users.push_back(make_unique<User>(user));
 }
 
@@ -121,6 +146,7 @@ bool Library::checkOutBook(const string& isbn, const string& userId) {
     User* user = findUserById(userId);
     
     if (book && user && book->getAvailability()) {
+        journals.push_back(make_unique<Journal>(getCurrentDate(), "EMPRUNT", books.back().get())); // Journal entry
         book->checkOut(user->getUserId());
         user->borrowBook(isbn);
         return true;
@@ -140,6 +166,7 @@ bool Library::returnBook(const string& isbn) {
                 break;
             }
         }
+        journals.push_back(make_unique<Journal>(getCurrentDate(), "RETOUR", books.back().get())); // Journal entry
         book->returnBook();
         return true;
     }
@@ -153,10 +180,17 @@ void Library::displayAllBooks() {
         return;
     }
     
+    auto allBooks = getAllBooks();
+
+    sort(allBooks.begin(), allBooks.end(),
+        [](const Book* a, const Book* b) {
+            return a->getTitle() < b->getTitle();
+        });
+
     cout << "\n=== TOUS LES LIVRES ===\n";
-    for (size_t i = 0; i < books.size(); ++i) {
+    for (size_t i = 0; i < allBooks.size(); ++i) {
         cout << "\nLivre " << (i + 1) << " :\n";
-        cout << books[i]->toString(*this) << "\n";
+        cout << allBooks[i]->toString(*this) << "\n";
         cout << "-------------------------\n";
     }
 }
@@ -164,6 +198,11 @@ void Library::displayAllBooks() {
 // Display available books
 void Library::displayAvailableBooks() {
     auto available = getAvailableBooks();
+
+    sort(available.begin(), available.end(),
+    [](const Book* a, const Book* b) {
+        return a->getTitle() < b->getTitle();
+    });
     
     if (available.empty()) {
         cout << "Aucun livre disponible pour emprunt.\n";
@@ -193,6 +232,34 @@ void Library::displayAllUsers() {
     }
 }
 
+// Restore journal entry
+void Library::restoreJournalEntry(const Journal& journal) {
+    journals.push_back(make_unique<Journal>(journal));
+}
+
+// Get all journals
+vector<Journal*> Library::getAllJournals() {
+    vector<Journal*> allJournals;
+    for (auto& journal : journals) {
+        allJournals.push_back(journal.get());
+    }
+    return allJournals;
+}
+
+// Display journal
+void Library::displayJournal() {
+    if (journals.empty()) {
+        cout << "Aucune opération enregistrée.\n";
+        return;
+    }
+    
+    cout << "\n=== JOURNAL DES OPÉRATIONS ===\n";
+    for (const auto& journal : journals) {
+        cout << journal->toString() << "\n";
+        cout << "------------------------------\n";
+    }
+}
+
 // Statistics
 int Library::getTotalBooks() const { return books.size(); }
 int Library::getAvailableBookCount() const {
@@ -202,3 +269,12 @@ int Library::getAvailableBookCount() const {
         });
 }
 int Library::getCheckedOutBookCount() const { return getTotalBooks() - getAvailableBookCount(); }
+
+// Helper function to get current date as string (YYYY-MM-DD)
+string Library::getCurrentDate() const {
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    char buffer[11];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", ltm);
+    return string(buffer);
+}

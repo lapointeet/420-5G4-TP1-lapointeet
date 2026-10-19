@@ -200,4 +200,5 @@ CMakeFiles/bibliotheque.dir/filemanager.cpp.o: \
  /usr/include/c++/14/backward/auto_ptr.h \
  /usr/include/c++/14/pstl/glue_memory_defs.h \
  /usr/include/c++/14/pstl/execution_defs.h \
- /workspaces/420-5G4-TPcpp/book.h /workspaces/420-5G4-TPcpp/user.h
+ /workspaces/420-5G4-TPcpp/book.h /workspaces/420-5G4-TPcpp/user.h \
+ /workspaces/420-5G4-TPcpp/journal.h

@@ -81,12 +81,12 @@ clean: CMakeFiles/bibliotheque.dir/clean
 CMakeFiles/bibliotheque.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bibliotheque.dir/build.make CMakeFiles/bibliotheque.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspaces/420-5G4-TPcpp/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target bibliotheque"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspaces/420-5G4-TPcpp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target bibliotheque"
 .PHONY : CMakeFiles/bibliotheque.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/bibliotheque.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/420-5G4-TPcpp/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/420-5G4-TPcpp/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bibliotheque.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/420-5G4-TPcpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/bibliotheque.dir/rule
@@ -107,6 +107,7 @@ CMakeFiles/bibliotheque.dir/clean:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
+	$(CMAKE_COMMAND) -P /workspaces/420-5G4-TPcpp/build/CMakeFiles/VerifyGlobs.cmake
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

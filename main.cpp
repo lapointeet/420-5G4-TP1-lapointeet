@@ -33,6 +33,7 @@ void displayMenu() {
     cout << "11. Statistiques de la Bibliothèque\n";
     cout << "12. Sauvegarder les Données\n";
     cout << "13. Créer une Sauvegarde\n";
+    cout << "14. Voir le Journal des Opérations\n";
     cout << "0.  Quitter\n";
     cout << "======================================================\n";
     cout << "Entrez votre choix : ";
@@ -70,7 +71,13 @@ int main(int argc, char* argv[]) {
 
     string booksFile;
     string usersFile;
-    if (!dataDir.empty()) {
+    string journalFile;
+    if (dataDir.empty()) {
+        cerr << "Erreur : aucun répertoire de données spécifié. "
+            << "Utilisez --data-dir <répertoire>.\n";
+        printUsage(argv[0]);
+        return 1;
+    } else {
         if (!filesystem::is_directory(dataDir)) {
             cerr << "Erreur : le répertoire " << dataDir << " n'existe pas.\n";
             printUsage(argv[0]);
@@ -78,10 +85,11 @@ int main(int argc, char* argv[]) {
         }
         booksFile = (filesystem::path(dataDir) / "books.txt").string();
         usersFile = (filesystem::path(dataDir) / "users.txt").string();
+        journalFile = (filesystem::path(dataDir) / "journal.txt").string();
     }
 
     Library library;
-    FileManager fileManager(booksFile, usersFile);
+    FileManager fileManager(booksFile, usersFile, journalFile);
     
     // Load existing data
     cout << "Chargement des données de la bibliothèque...\n";
@@ -141,7 +149,7 @@ int main(int argc, char* argv[]) {
                     cout << "\n=== RÉSULTATS DE RECHERCHE ===\n";
                     for (size_t i = 0; i < results.size(); ++i) {
                         cout << "\nRésultat " << (i + 1) << " :\n";
-                        cout << results[i]->toString() << "\n";
+                        cout << results[i]->toString(library) << "\n";
                         cout << "-----------------------------\n";
                     }
                 }
@@ -159,7 +167,7 @@ int main(int argc, char* argv[]) {
                     cout << "\n=== RÉSULTATS DE RECHERCHE ===\n";
                     for (size_t i = 0; i < results.size(); ++i) {
                         cout << "\nRésultat " << (i + 1) << " :\n";
-                        cout << results[i]->toString() << "\n";
+                        cout << results[i]->toString(library) << "\n";
                         cout << "-----------------------------\n";
                     }
                 }
@@ -244,6 +252,12 @@ int main(int argc, char* argv[]) {
             
             case 13: { // Create Backup
                 fileManager.createBackup();
+                pauseForInput();
+                break;
+            }
+
+            case 14: { // View Journal
+                library.displayJournal();
                 pauseForInput();
                 break;
             }

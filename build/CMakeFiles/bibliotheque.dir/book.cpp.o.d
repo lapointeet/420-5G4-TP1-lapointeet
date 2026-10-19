@@ -167,4 +167,25 @@ CMakeFiles/bibliotheque.dir/book.cpp.o: \
  /usr/include/c++/14/bits/stl_tempbuf.h \
  /usr/include/c++/14/pstl/glue_algorithm_defs.h \
  /usr/include/c++/14/pstl/execution_defs.h \
- /workspaces/420-5G4-TPcpp/book.h
+ /workspaces/420-5G4-TPcpp/book.h /workspaces/420-5G4-TPcpp/library.h \
+ /usr/include/c++/14/vector /usr/include/c++/14/bits/stl_uninitialized.h \
+ /usr/include/c++/14/bits/stl_vector.h \
+ /usr/include/c++/14/bits/stl_bvector.h \
+ /usr/include/c++/14/bits/vector.tcc /usr/include/c++/14/memory \
+ /usr/include/c++/14/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/14/bits/align.h \
+ /usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /usr/include/c++/14/bits/unique_ptr.h \
+ /usr/include/c++/14/bits/shared_ptr.h \
+ /usr/include/c++/14/bits/shared_ptr_base.h \
+ /usr/include/c++/14/bits/allocated_ptr.h \
+ /usr/include/c++/14/ext/aligned_buffer.h \
+ /usr/include/c++/14/ext/concurrence.h \
+ /usr/include/c++/14/bits/shared_ptr_atomic.h \
+ /usr/include/c++/14/bits/atomic_base.h \
+ /usr/include/c++/14/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/14/backward/auto_ptr.h \
+ /usr/include/c++/14/pstl/glue_memory_defs.h \
+ /workspaces/420-5G4-TPcpp/user.h /workspaces/420-5G4-TPcpp/journal.h
